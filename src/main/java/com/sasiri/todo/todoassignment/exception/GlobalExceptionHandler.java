@@ -42,6 +42,27 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<?> handelUserAlreadyException(
+            UserAlreadyExistsException ex, WebRequest request) {
+        ErrorResponse errorDetails = new ErrorResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(AuthenticationFailedException.class)
+    public ResponseEntity<?> handelAuthenticationFailedException(
+            AuthenticationFailedException ex, WebRequest request) {
+        ErrorResponse errorDetails = new ErrorResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
+    }
+
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> globleExceptionHandler(
             Exception ex, WebRequest request) {
